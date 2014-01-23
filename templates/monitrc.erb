@@ -1,0 +1,18 @@
+set daemon 60
+set logfile /var/log/monit.log
+set idfile /var/lib/monit/id
+set statefile /var/lib/monit/state
+<% if @email_enabled -%>
+set mailserver <%= @smtp_host %> port <%= @smtp_port %>
+  username "<%= @smtp_username %>" password "<%= @smtp_password %>"
+<% end -%>
+set eventqueue
+  basedir /var/lib/monit/events
+  slots 100
+set httpd port <%= @admin_port %>
+  allow localhost
+<% if @admin_enabled -%>
+  allow admin:"<%= @admin_password %>"
+<% end -%>
+
+include /etc/monit/conf.d/*
