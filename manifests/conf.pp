@@ -1,6 +1,6 @@
 define monit::conf(
-  $content = nil,
-  $source = nil
+  $content = undef,
+  $source = undef
 ) {
   if ($content) {
     file { "/etc/monit/conf.d/${title}":
